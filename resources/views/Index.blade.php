@@ -24,14 +24,14 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($DadosVendas as $DadosVenda)
+          @foreach ($Sale_Records as $Sale_Record)
 <tr>
-    <td>{{$DadosVenda->id}} </td>
-    <td>{{$DadosVenda->cliente}} </td>
-    <td>{{$DadosVenda->vendedor}} </td>
-    <td>{{$DadosVenda->descricao}} </td>
-    <td>{{$DadosVenda->valor}} </td>
-    <td>{{$DadosVenda->data}} </td>
+    <td>{{$Sale_Record->Id}} </td>
+    <td>{{$Sale_Record->Client}} </td>
+    <td>{{$Sale_Record->Seller}} </td>
+    <td>{{$Sale_Record->Description}} </td>
+    <td>{{$Sale_Record->Value}} </td>
+    <td>{{$Sale_Record->Data}} </td>
 
 
 
@@ -39,7 +39,7 @@
 
 
 
-    <a class="btn btn-primary" href=" {{route('show',$DadosVenda->id)}} ">  Detalhar  </a>   <a class="btn btn-primary" class="ml-5"  href="{{route('edit',$DadosVenda->id)}}"  >  Editar </a> </td>
+    <a class="btn btn-primary" href=" {{route('show',$Sale_Record->Id)}} ">  Detalhar  </a>   <a class="btn btn-primary" class="ml-5"  href="{{route('edit',$Sale_Record->Id)}}"  >  Editar </a> </td>
 @endforeach
         </tbody>
 
@@ -51,7 +51,7 @@
 
 
     <div class="row justify-content-center">
-        {{ $DadosVendas->links() }}
+        {{ $Sale_Records->links() }}
 
 
     </div>
@@ -59,10 +59,18 @@
         <a class=" btn btn-primary"  href="{{route('create')}}"  >  Cadastrar novo orçamento </a></td>
 </div>
 
+
 <div class="row justify-content-center mt-5">
+
+    <h5>Informe o vendedor , cliente ou a data para pesquisa </h5>
+</div>
+
+<div class="row justify-content-center mt-5">
+
    <form class="form form-inline" action="{{route ('search')}}" method="post" class="form form-inline">
     @csrf
 <input type="text" name="filter" placeholder="Filtrar" class="form-control">
+
 <button type="submit" class="btn btn-primary">Procurar</button>
 </div>
 

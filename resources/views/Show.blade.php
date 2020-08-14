@@ -10,19 +10,19 @@
 <div class="row justify-content-center mt-3">
 
 <ul>
-    <li class="form form-group"> ID do orçamento: {{$DadosVenda->id}}  </li>
-    <li class="form form-group">Nome do cliente :{{$DadosVenda->cliente}} </li>
-    <li class="form form-group">Nome do Vendedor :{{$DadosVenda->vendedor}} </li>
-    <li class="form form-group">Descrição do orçamento:{{$DadosVenda->descricao}} </li>
-    <li class="form form-group">Valor:{{$DadosVenda->valor}} </li>
-    <li class="form form-group">Data:{{$DadosVenda->data}} </li>
+    <li class="form form-group"> ID do orçamento: {{$Sale_Record->Id}}  </li>
+    <li class="form form-group">Nome do cliente :{{$Sale_Record->Client}} </li>
+    <li class="form form-group">Nome do Vendedor :{{$Sale_Record->Seller}} </li>
+    <li class="form form-group">Descrição do orçamento:{{$Sale_Record->Description}} </li>
+    <li class="form form-group">Valor:{{$Sale_Record->Value}} </li>
+    <li class="form form-group">Data:{{$Sale_Record->Data}} </li>
 
 </ul>
 </div>
 <div class="row justify-content-center mt-3">
 
 
-<form action="{{route ('delete', $DadosVenda->id)}}" method="POST">
+<form action="{{route ('delete', $Sale_Record->Id)}}" method="POST">
 @csrf
 @method('Delete')
 

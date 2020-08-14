@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 
 class cadastro extends Controller
 {
-
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -19,11 +15,9 @@ class cadastro extends Controller
      */
     public function index()
     {
-
-
-        $DadosVenda = DB::table('cadastros')->paginate(5);
+        $Sale_Record = DB::table('Records')->paginate(5);
         return view ('index', [
-        'DadosVendas' => $DadosVenda]);
+        'Sale_Records' => $Sale_Record]);
     }
 
     /**
@@ -33,10 +27,8 @@ class cadastro extends Controller
      */
     public function create()
     {
-
-        $DadosVenda = DB::table('cadastros');
-
-        return view("Createview" , compact('DadosVenda'));
+        $Sale_Record = DB::table('Records');
+        return view("Createview" , compact('Sale_Record'));
     }
 
     /**
@@ -47,15 +39,13 @@ class cadastro extends Controller
      */
     public function save(Request $request )
     {
-
         $NovoCadastro = new AppCadastro();
-        $NovoCadastro->id = $request->id;
-        $NovoCadastro->cliente = $request->cliente;
-        $NovoCadastro->vendedor = $request->vendedor;
-        $NovoCadastro->descricao = $request->descricao;
-        $NovoCadastro->valor = $request->valor;
-        $NovoCadastro->data = $request->data;
-
+        $NovoCadastro->Id = $request->Id;
+        $NovoCadastro->Client = $request->Client;
+        $NovoCadastro->Seller = $request->Seller;
+        $NovoCadastro->Description = $request->Description;
+        $NovoCadastro->Value = $request->Value;
+        $NovoCadastro->Data = $request->Data;
         $NovoCadastro->save();
 
 return redirect()->route('home');
@@ -65,30 +55,29 @@ return redirect()->route('home');
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $Id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($Id)
     {
 
-
-         $DadosVenda = DB::table('cadastros')-> Where ('id',$id)->First();
+         $Sale_Record = DB::table('Records')-> Where ('Id',$Id)->First();
         return view ('Show',[
-            'DadosVenda' => $DadosVenda,
+            'Sale_Record' => $Sale_Record,
         ] );
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $Id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($Id)
     {
-        $DadosVenda = DB::table('cadastros')-> Where ('id',$id)->First();
+        $Sale_Record = DB::table('Records')-> Where ('Id',$Id)->First();
         return view ('Edit',[
-            'DadosVenda' => $DadosVenda,
+            'Sale_Record' => $Sale_Record,
         ] );
     }
 
@@ -97,44 +86,19 @@ return redirect()->route('home');
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $Id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $Id)
     {
 
-
-/*
-        $DadosVenda = DB::table('cadastros')-> Where ('id',$id)->First();
-        $DadosVenda->id = $request->id;
-        $DadosVenda->cliente = $request->cliente;
-        $DadosVenda->vendedor = $request->vendedor;
-        $DadosVenda->descricao = $request->descricao;
-        $DadosVenda->valor = $request->valor;
-        $DadosVenda->data = $request->data;;
-
-        $DadosVenda->save();
-
-        dd($DadosVenda);
-
-
-        $affected = DB::update("update cadastros set $DadosVenda->id = $request->cliente; where $DadosVenda->id = $id");
-        dd($affected);
-*/
-        $affected = DB::table('cadastros')
-        ->where('id', '=', $id )
-        ->update([
-            'cliente' => $request->cliente,
-            'vendedor' => $request->vendedor,
-            'descricao' => $request->descricao,
-            'valor' => $request->valor,
-            'data' => $request->data,
-
-
+        $affected = DB::table('Records')->where('Id', '=', $Id )->update([
+            'Client' => $request->Client,
+            'Seller' => $request->Seller,
+            'Description' => $request->Description,
+            'Value' => $request->Value,
+            'Data' => $request->Data,
         ]);
-
-
-
         return redirect()->route('home');
 
     }
@@ -145,22 +109,35 @@ return redirect()->route('home');
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $Id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($Id)
     {
-        $DadosVenda = DB::table('cadastros')-> Where ('id',$id)->delete();
+        $Sale_Record = DB::table('Records')-> Where ('Id',$Id)->delete();
         return redirect()->route('home');
     }
 
-    public function search(Request $request){
 
-    $DadosVenda = ($request->filter);
+/*     This function will filter the results typed by the user and save in the variable query */
 
-    $DadosVenda = DB::table('cadastros')->paginate(5);
+    public function Filter($filter=null){
+        $results = $this->where(function($query) use ($filter){
+            if($filter){
+                $query->where('cliente','LIKE',"%{$filter}%" or 'vendedor','LIKE',"%{$filter}%" or 'data','LIKE',"%{$filter}%")->orderBy("%{$filter}%", 'desc')->get()   ;
+            }
+        });
+         return $results;
+            }
+
+/*             This function will display the filtered results  */
+
+
+    public function Search(Request $request){
+    $Sale_Record = ($request->filter);
+    $Sale_Record = DB::table('Records')->paginate(5);
     return view ('index', [
-    'DadosVendas' => $DadosVenda]);
+    'Sale_Records' => $Sale_Record]);
 
     }
 

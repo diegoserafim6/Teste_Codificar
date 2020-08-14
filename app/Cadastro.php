@@ -16,13 +16,6 @@ class Cadastro extends Model
 
     ];
 
-    public function search($filter=null){
-$results = $this->where(function($query) use ($filter){
-    if($filter){
-        $query->where('cliente','LIKE',"%{$filter}%" or 'vendedor','LIKE',"%{$filter}%" or 'data','LIKE',"%{$filter}%")->orderBy("%{$filter}%", 'desc')->get()   ;
-    }
-});
- return $results;
-    }
+
 
 }

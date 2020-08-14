@@ -13,13 +13,13 @@ class CreateCadastrosTable extends Migration
      */
     public function up()
     {
-        Schema::create('cadastros', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('cliente');
-            $table->string('vendedor');
-            $table->string('descricao');
-            $table->double('valor');
-            $table->dateTimeTz('data', 0);
+        Schema::create('Records', function (Blueprint $table) {
+            $table->id('Id');
+            $table->string('Client');
+            $table->string('Seller');
+            $table->string('Description');
+            $table->double('Value');
+            $table->dateTimeTz('Data', 0);
 
         });
     }
@@ -31,6 +31,6 @@ class CreateCadastrosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cadastros');
+        Schema::dropIfExists('Records');
     }
 }
